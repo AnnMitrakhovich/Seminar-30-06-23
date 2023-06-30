@@ -45,14 +45,6 @@
 // 5 9 2 3
 // 8 4 2 4
 // 17 -> такого числа в массиве нет
-
-
-// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
-// Например, задан массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
-// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 int InputNum(string message)
 {
     Console.Write(message);
@@ -79,21 +71,38 @@ void Print2DArray(int[,] array)
         Console.WriteLine();
     }
 }
-void FindAverage(int[,] array)
+void FindPosition(int number, int[,] array)
 {
-    double average = 0;
-    
-    for (int j = 0; j < array.GetLength(1); j++)
+    if (number > array.GetLength(0) * array.GetLength(1)) Console.WriteLine("такой позиции не существует");
+    else
+    // {
+    //     int count = 0;
+    //     for (int i = 0; i < array.GetLength(0); i++)
+    //     {
+    //         for (int j = 0; j < array.GetLength(1); j++)
+    //         {
+    //             count++;
+    //             if (count == number)
+    //             {
+    //                 Console.WriteLine(array[i, j]);
+    //             }
+    //         }
+    //     }
+    // }
+
     {
-        double summa = 0;
-        for (int i = 0; i < array.GetLength(0); i++)
+        int i = 0;
+        int columns = array.GetLength(1);
+        while (number > columns)
         {
-            summa += array[i, j];
+            number = number - columns;
+            i++;
         }
-        average = Math.Round(summa / array.GetLength(0), 1);
-        Console.WriteLine($"Среднее арифметическое {j + 1} столбца равно {average}.");
+        Console.WriteLine(array[i, number - 1]);
     }
+
 }
+
 int rows = InputNum("Введите количество строк: ");
 int columns = InputNum("Введите количество столбцов: ");
 int minN = InputNum("Введите минимальное значение в диапазоне чисел массива: ");
@@ -101,7 +110,65 @@ int maxN = InputNum("Введите максимальное значение в
 int[,] myArray = Create2DArray(rows, columns);
 Fill2DArray(myArray, minN, maxN);
 Print2DArray(myArray);
-FindAverage(myArray);
+int n = InputNum("Введите позицию в массиве: ");
+FindPosition(n, myArray);
+
+// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+
+// int InputNum(string message)
+// {
+//     Console.Write(message);
+//     return int.Parse(Console.ReadLine()!);
+// }
+
+// int[,] Create2DArray(int rows, int cols)
+// {
+//     return new int[rows, cols];
+// }
+// void Fill2DArray(int[,] array, int min, int max)
+// {
+//     Random rnd = new Random();
+//     for (int i = 0; i < array.GetLength(0); i++)
+//         for (int j = 0; j < array.GetLength(1); j++)
+//             array[i, j] = rnd.Next(min, max + 1);
+// }
+// void Print2DArray(int[,] array)
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//             Console.Write($"{array[i, j]}\t");
+//         Console.WriteLine();
+//     }
+// }
+// void FindAverage(int[,] array)
+// {
+//     double average = 0;
+
+//     for (int j = 0; j < array.GetLength(1); j++)
+//     {
+//         double summa = 0;
+//         for (int i = 0; i < array.GetLength(0); i++)
+//         {
+//             summa += array[i, j];
+//         }
+//         average = Math.Round(summa / array.GetLength(0), 1);
+//         Console.WriteLine($"Среднее арифметическое {j + 1} столбца равно {average}.");
+//     }
+// }
+// int rows = InputNum("Введите количество строк: ");
+// int columns = InputNum("Введите количество столбцов: ");
+// int minN = InputNum("Введите минимальное значение в диапазоне чисел массива: ");
+// int maxN = InputNum("Введите максимальное значение в диапазоне чисел массива: ");
+// int[,] myArray = Create2DArray(rows, columns);
+// Fill2DArray(myArray, minN, maxN);
+// Print2DArray(myArray);
+// FindAverage(myArray);
 
 // РАБОТА НА УРОКЕ
 // Задача 51: Задайте двумерный массив. Найдите сумму элементов, находящихся на главной диагонали 
